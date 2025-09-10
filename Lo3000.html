@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>I love you 3000</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4c2c2; /* baby pink */
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden; /* prevent scrollbars */
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      font-size: 3rem;
+      color: #ff3366;
+      text-shadow: 0 0 10px #ff6699, 0 0 20px #ff99aa;
+      z-index: 10;
+    }
+
+    .number {
+      font-weight: bold;
+      font-size: 3.5rem;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .doodle {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.5;
+      animation: float 12s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0.2;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0.1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    I love you <span class="number" id="number">1</span>
+  </div>
+
+  <script>
+    // Count up from 1 to 3000
+    const numberEl = document.getElementById('number');
+    let current = 1;
+    const target = 3000;
+    const duration = 20000; // 20 seconds
+    const interval = duration / target;
+
+    const counter = setInterval(() => {
+      current++;
+      numberEl.textContent = current;
+      if (current >= target) clearInterval(counter);
+    }, interval);
+
+    // Floating doodles
+    const doodles = ["❤️", "🌸", "⭐", "🐱", "💕", "🌷", "🌟"];
+    const body = document.body;
+
+    function createDoodle() {
+      const doodle = document.createElement("div");
+      doodle.classList.add("doodle");
+      doodle.textContent = doodles[Math.floor(Math.random() * doodles.length)];
+      doodle.style.left = Math.random() * 100 + "vw";
+      doodle.style.animationDuration = (8 + Math.random() * 8) + "s"; // 8-16s
+      doodle.style.fontSize = (20 + Math.random() * 30) + "px"; // random size
+      body.appendChild(doodle);
+
+      setTimeout(() => {
+        doodle.remove();
+      }, 16000); // remove after max float duration
+    }
+
+    setInterval(createDoodle, 900); // new doodle every 0.9s
+  </script>
+</body>
+</html>
